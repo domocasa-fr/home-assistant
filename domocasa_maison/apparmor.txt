@@ -23,7 +23,9 @@ profile domocasa_maison flags=(attach_disconnected,mediate_deleted) {
 
   # Données de l'app (identité de la maison, journal, appareils) et dossier de configuration.
   /data/ r,
-  /data/** rwk,
+  # « l » : la clé et l'identité s'écrivent par un fichier temporaire puis un lien dur
+  # (jamais d'écrasement) — sans lui, « permission denied » au premier démarrage (VM, 13/11).
+  /data/** rwkl,
   /config/ r,
   /config/** rwk,
 
