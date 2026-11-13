@@ -1,0 +1,43 @@
+{
+  "configuration": {
+    "lieu": {
+      "name": "Nom de la maison",
+      "description": "Le nom affiché dans l'application Domocasa, par exemple « Maison » ou « Résidence des Pins »."
+    },
+    "masquer": {
+      "name": "Appareils exclus",
+      "description": "Liste d'identifiants d'appareils (par exemple light.cave) que les applications ne doivent plus voir du tout. Un appareil exclu n'existe plus pour la famille et ne peut plus être commandé. Pour seulement le cacher à la famille, utilisez « Masquer » dans l'application."
+    },
+    "annonce_mdns": {
+      "name": "Annonce sur le réseau de la maison",
+      "description": "Permet aux téléphones de retrouver la maison tout seuls quand ils sont chez vous. À laisser activé sauf avis contraire de votre installateur."
+    },
+    "adresse_locale": {
+      "name": "Adresse locale (facultatif)",
+      "description": "Force l'adresse inscrite dans le code de jumelage, sous la forme ws://adresse:8788/v1. Laissez vide : l'adresse est trouvée automatiquement."
+    },
+    "relais_url": {
+      "name": "Adresse du relais (facultatif)",
+      "description": "Réservé à votre installateur. Laissez vide pour utiliser le relais Domocasa."
+    },
+    "cloud_url": {
+      "name": "Adresse du service de comptes (facultatif)",
+      "description": "Réservé à votre installateur. Laissez vide pour utiliser le service de comptes Domocasa."
+    },
+    "niveau_journal": {
+      "name": "Détail du journal",
+      "description": "« info » convient à l'usage courant. « detail » sert seulement à chercher une panne avec votre installateur."
+    },
+    "alarme_code": {
+      "name": "Code de l'alarme (facultatif)",
+      "description": "Le code de l'utilisateur « Domocasa » créé dans Alarmo. Il permet d'armer et de désarmer l'alarme depuis l'application. Il n'est jamais affiché."
+    },
+    "alarme_entite": {
+      "name": "Alarme à exposer (facultatif)",
+      "description": "Identifiant de l'alarme à montrer dans l'application, par exemple alarm_control_panel.alarmo. Laissez vide s'il n'y a qu'une seule alarme."
+    }
+  },
+  "network": {
+    "8788/tcp": "Connexion des applications Domocasa depuis le réseau de la maison"
+  }
+}

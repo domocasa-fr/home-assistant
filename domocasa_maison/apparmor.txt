@@ -1,0 +1,40 @@
+#include <tunables/global>
+
+# Profil de l'app Domocasa Maison (spec passerelle en app HA § 8). Brouillon accepté par
+# `apparmor_parser -Q -K -T` ; la liste exacte se règle sur le banc HAOS en mode `complain`
+# (journal d'audit), puis retour en mode strict.
+profile domocasa_maison flags=(attach_disconnected,mediate_deleted) {
+  #include <abstractions/base>
+
+  # Réseau : connexions TCP (HA, relais, cloud, applications), UDP (DNS, mDNS), sockets locales.
+  network inet stream,
+  network inet dgram,
+  network inet6 stream,
+  network inet6 dgram,
+  network unix stream,
+  # Énumération des interfaces réseau par la bibliothèque mDNS.
+  network netlink raw,
+
+  # Signaux : arrêt demandé par le Supervisor ; rien d'envoyé aux autres processus.
+  signal (receive) set=(term,int,kill),
+
+  # Le seul programme exécutable est la passerelle.
+  /usr/bin/maison-passerelle ix,
+
+  # Données de l'app (identité de la maison, journal, appareils) et dossier de configuration.
+  /data/ r,
+  /data/** rwk,
+  /config/ r,
+  /config/** rwk,
+
+  # Résolution de noms et réseau.
+  /etc/hosts r,
+  /etc/resolv.conf r,
+  /etc/nsswitch.conf r,
+  /proc/sys/net/** r,
+
+  # Aucun accès aux dossiers de Home Assistant.
+  deny /homeassistant/** rwklx,
+  deny /share/** rwklx,
+  deny /backup/** rwklx,
+}

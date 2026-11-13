@@ -1,0 +1,43 @@
+{
+  "configuration": {
+    "lieu": {
+      "name": "Home name",
+      "description": "The name shown in the Domocasa app, for example \"Home\" or \"Pine Cottage\"."
+    },
+    "masquer": {
+      "name": "Excluded devices",
+      "description": "List of device identifiers (for example light.cellar) that the apps must not see at all. An excluded device no longer exists for the family and cannot be controlled. To only hide it from the family, use \"Hide\" in the app."
+    },
+    "annonce_mdns": {
+      "name": "Announce on the home network",
+      "description": "Lets phones find the home by themselves when they are on your network. Leave enabled unless your installer says otherwise."
+    },
+    "adresse_locale": {
+      "name": "Local address (optional)",
+      "description": "Forces the address written in the pairing code, as ws://address:8788/v1. Leave empty: the address is found automatically."
+    },
+    "relais_url": {
+      "name": "Relay address (optional)",
+      "description": "For your installer only. Leave empty to use the Domocasa relay."
+    },
+    "cloud_url": {
+      "name": "Accounts service address (optional)",
+      "description": "For your installer only. Leave empty to use the Domocasa accounts service."
+    },
+    "niveau_journal": {
+      "name": "Log detail",
+      "description": "\"info\" is fine for everyday use. \"detail\" is only for tracking down a problem with your installer."
+    },
+    "alarme_code": {
+      "name": "Alarm code (optional)",
+      "description": "The code of the \"Domocasa\" user created in Alarmo. It lets the app arm and disarm the alarm. It is never displayed."
+    },
+    "alarme_entite": {
+      "name": "Alarm to expose (optional)",
+      "description": "Identifier of the alarm to show in the app, for example alarm_control_panel.alarmo. Leave empty if there is only one alarm."
+    }
+  },
+  "network": {
+    "8788/tcp": "Connection of the Domocasa apps from the home network"
+  }
+}
