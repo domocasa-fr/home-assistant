@@ -8,6 +8,10 @@
       "name": "Excluded devices",
       "description": "List of device identifiers (for example light.cellar) that the apps must not see at all. An excluded device no longer exists for the family and cannot be controlled. To only hide it from the family, use \"Hide\" in the app."
     },
+    "arrosage": {
+      "name": "Watering (switches)",
+      "description": "List of switch identifiers (for example switch.garden_watering) to show in the app as watering, with on and off. Water valves (valve) are shown automatically; other switches are never shown."
+    },
     "annonce_mdns": {
       "name": "Announce on the home network",
       "description": "Lets phones find the home by themselves when they are on your network. Leave enabled unless your installer says otherwise."

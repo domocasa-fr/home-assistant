@@ -81,6 +81,17 @@ Deux réglages portent le même mot, pour deux effets différents.
 
 En cas de doute, utilisez « Masquer » dans l'application : c'est réversible d'un geste.
 
+## Arrosage
+
+Les vannes d'eau de Home Assistant (entités `valve.…`, hors gaz) apparaissent d'office dans
+l'application, dans la pièce de la vanne : « En marche » / « Arrêté », un toucher pour basculer.
+
+Un arrosage branché sur un simple interrupteur (`switch.…`) n'apparaît **que si vous le
+nommez** dans l'option `arrosage` (onglet Configuration), par exemple `switch.arrosage_jardin` :
+Home Assistant crée des dizaines d'interrupteurs (voyants, verrous enfant…) qu'on ne veut pas
+piloter depuis un téléphone. Les programmes d'arrosage restent des automatisations de Home
+Assistant. Mettez l'app Domocasa à jour sur les téléphones **après** cette app.
+
 ## Jumeler un téléphone
 
 1. Ouvrez **Domocasa** dans la barre latérale de Home Assistant (réservé aux administrateurs).

@@ -1,6 +1,6 @@
 {
   "name": "Domocasa Maison",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "slug": "domocasa_maison",
   "description": "Pilotez votre maison depuis l'application Domocasa, sans rien ouvrir sur Internet.",
   "url": "https://domocasa.fr",
@@ -37,12 +37,14 @@
   "options": {
     "lieu": "Maison",
     "masquer": [],
+    "arrosage": [],
     "annonce_mdns": true,
     "niveau_journal": "info"
   },
   "schema": {
     "lieu": "str",
     "masquer": ["str"],
+    "arrosage": ["str"],
     "annonce_mdns": "bool",
     "adresse_locale": "match(^ws://[^/\\s]+/v1$)?",
     "relais_url": "url?",

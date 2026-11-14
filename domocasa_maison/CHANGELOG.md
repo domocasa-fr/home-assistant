@@ -1,5 +1,16 @@
 # Notes de version
 
+## 0.1.2
+
+- Les comptes, l'accès hors de chez soi et l'abonnement sont en service : l'app Domocasa peut
+  désormais se connecter à la maison.
+- Arrosage : une vanne d'eau de Home Assistant paraît dans l'app Domocasa, dans sa pièce, avec
+  sa mise en marche et son arrêt. Un arrosage commandé par un interrupteur s'ajoute par le
+  réglage **Arrosage** de l'app.
+- Les capteurs techniques (température d'une antenne, d'un module…) ne sont plus pris pour la
+  température d'une pièce.
+- Premier démarrage sur Home Assistant OS corrigé (création de la clé de la maison).
+
 ## 0.1.1
 
 Première version publiée, à titre d'essai (la 0.1.0 n'a pas été publiée).

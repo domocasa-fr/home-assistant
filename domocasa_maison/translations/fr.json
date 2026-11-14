@@ -8,6 +8,10 @@
       "name": "Appareils exclus",
       "description": "Liste d'identifiants d'appareils (par exemple light.cave) que les applications ne doivent plus voir du tout. Un appareil exclu n'existe plus pour la famille et ne peut plus être commandé. Pour seulement le cacher à la famille, utilisez « Masquer » dans l'application."
     },
+    "arrosage": {
+      "name": "Arrosages (interrupteurs)",
+      "description": "Liste d'identifiants d'interrupteurs (par exemple switch.arrosage_jardin) à montrer dans l'application comme arrosage, avec marche et arrêt. Les vannes d'eau (valve) sont montrées d'office ; les autres interrupteurs ne le sont jamais."
+    },
     "annonce_mdns": {
       "name": "Annonce sur le réseau de la maison",
       "description": "Permet aux téléphones de retrouver la maison tout seuls quand ils sont chez vous. À laisser activé sauf avis contraire de votre installateur."
