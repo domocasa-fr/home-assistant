@@ -1,5 +1,12 @@
 # Notes de version
 
+## 0.1.4
+
+- Le technicien Domocasa peut renommer un appareil depuis son app, sans ouvrir Home Assistant :
+  le nouveau nom est écrit dans Home Assistant lui-même, et l'app Domocasa, Alexa et la tablette
+  murale l'utilisent aussitôt. Seuls les appareils montrés dans l'app peuvent être renommés, et
+  seulement par le technicien. Les apps Domocasa déjà installées continuent de fonctionner.
+
 ## 0.1.3
 
 - Arrosage : quand le programme d'arrosage Domocasa est posé dans Home Assistant, l'app Domocasa
