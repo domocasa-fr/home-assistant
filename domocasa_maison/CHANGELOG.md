@@ -1,5 +1,12 @@
 # Notes de version
 
+## 0.1.5
+
+- La température d'une pièce et de la maison ne prend plus la sonde intégrée d'une
+  climatisation pour un capteur de la pièce : cette sonde mesure l'air près de la sortie de la
+  clim, en haut du mur, et donnait une maison trop chaude. La température d'une clim reste
+  affichée sur sa fiche.
+
 ## 0.1.4
 
 - Le technicien Domocasa peut renommer un appareil depuis son app, sans ouvrir Home Assistant :
