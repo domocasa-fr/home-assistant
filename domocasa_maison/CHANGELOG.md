@@ -1,5 +1,10 @@
 # Notes de version
 
+## 0.1.11
+
+- Direct et clips des caméras Eufy : la box n'abandonne plus le réveil d'une caméra quand Home
+  Assistant met plus de 3 secondes à le confirmer ; elle attend l'image jusqu'à 20 secondes.
+
 ## 0.1.10
 
 - Direct des caméras corrigé sur Home Assistant OS : la box ne propose plus au téléphone que
