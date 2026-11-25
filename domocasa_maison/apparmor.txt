@@ -18,8 +18,13 @@ profile domocasa_maison flags=(attach_disconnected,mediate_deleted) {
   # Signaux : arrêt demandé par le Supervisor ; rien d'envoyé aux autres processus.
   signal (receive) set=(term,int,kill),
 
-  # Le seul programme exécutable est la passerelle.
+  # Les seuls programmes exécutables : la passerelle, et go2rtc qu'elle lance et surveille (vue
+  # Sécurité), dans son SOUS-PROFIL `go2rtc` ci-dessous (relecture de sécurité du 23/11 : go2rtc
+  # est exposé au réseau par le WebRTC ; il ne voit rien des données de la passerelle).
   /usr/bin/maison-passerelle ix,
+  /usr/bin/go2rtc cx -> go2rtc,
+  # La passerelle arrête go2rtc (son sous-profil) ; aucun autre processus.
+  signal (send) set=(term,kill) peer=domocasa_maison//go2rtc,
 
   # Données de l'app (identité de la maison, journal, appareils) et dossier de configuration.
   /data/ r,
@@ -39,4 +44,41 @@ profile domocasa_maison flags=(attach_disconnected,mediate_deleted) {
   deny /homeassistant/** rwklx,
   deny /share/** rwklx,
   deny /backup/** rwklx,
+
+  # go2rtc embarqué : lit SA configuration (écrite par la passerelle) et sert SA socket ; ni les
+  # clés, ni l'identité, ni le journal, ni les passages (les clips sont écrits par la passerelle,
+  # go2rtc ne fait que les lui servir), ni `/config`. N'exécute rien.
+  profile go2rtc flags=(attach_disconnected,mediate_deleted) {
+    #include <abstractions/base>
+
+    /usr/bin/go2rtc mr,
+
+    # WebRTC (:8555 UDP et TCP), RTSP du go2rtc Eufy (127.0.0.1:8554), STUN ; socket de l'API.
+    network inet stream,
+    network inet dgram,
+    network inet6 stream,
+    network inet6 dgram,
+    network unix stream,
+    # Énumération des interfaces (candidats WebRTC).
+    network netlink raw,
+
+    # Arrêt par la passerelle ou par le Supervisor.
+    signal (receive) set=(term,int,kill),
+
+    /data/go2rtc/ r,
+    /data/go2rtc/go2rtc.yaml r,
+    /data/go2rtc/api.sock rw,
+
+    # Résolution du STUN, réglages du réseau et de Go.
+    /etc/hosts r,
+    /etc/resolv.conf r,
+    /etc/nsswitch.conf r,
+    /proc/sys/net/** r,
+    /sys/kernel/mm/transparent_hugepage/hpage_pmd_size r,
+
+    deny /config/** rwklx,
+    deny /homeassistant/** rwklx,
+    deny /share/** rwklx,
+    deny /backup/** rwklx,
+  }
 }

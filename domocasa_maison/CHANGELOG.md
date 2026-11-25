@@ -1,5 +1,31 @@
 # Notes de version
 
+## 0.1.7
+
+- Vue Sécurité : les caméras Eufy de la maison dans l'application Domocasa. Image tout de suite,
+  puis le direct en 5 à 9 secondes, en pleine qualité, directement de la box au téléphone (la
+  vidéo ne passe par aucun serveur). Le direct s'arrête seul après 5 minutes sans activité pour
+  ménager les batteries. Une caméra intérieure n'est visible que lorsque l'alarme est en
+  « Absent ». Les caméras se règlent dans les options de l'app (voir la documentation).
+- Notifications chiffrées avec la photo du passage : une personne détectée quand la maison est
+  vide ou l'alarme en « Absent », la sonnette toujours ; 2 minutes de silence ensuite. Ni Apple,
+  ni Google, ni Domocasa ne voient l'image.
+- Historique des passages sur 7 jours, avec la photo et un clip de 15 secondes enregistré par la
+  box elle-même ; tout reste dans la box. Sur la tablette « Partagée », l'historique s'ouvre avec
+  le code de l'alarme.
+- Quand on sonne, la box prévient aussitôt les applications ouvertes (appel de la sonnette en
+  plein écran).
+- Tout cela demande une application Domocasa à jour. Les apps Domocasa déjà installées
+  continuent de fonctionner, sans les caméras.
+- Un téléphone de technicien perdu peut être coupé : Domocasa publie la liste des certificats
+  révoqués, l'app la récupère chaque heure et refuse aussitôt ces certificats, même sans
+  Internet ensuite. Les téléphones de la famille ne sont pas concernés.
+- Les certificats de technicien durent 90 jours au plus.
+- La vidéo passe par go2rtc 1.9.14, intégré à l'app (mot de passe exigé même depuis la box).
+- La page Domocasa de Home Assistant sert à l'installation avec Domocasa Pro ; les téléphones
+  de la famille s'ajoutent depuis Domocasa Pro ou l'application Domocasa. Les apps Domocasa
+  déjà installées continuent de fonctionner.
+
 ## 0.1.5
 
 - La température d'une pièce et de la maison ne prend plus la sonde intégrée d'une

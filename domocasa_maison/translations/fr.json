@@ -39,6 +39,26 @@
     "alarme_entite": {
       "name": "Alarme à exposer (facultatif)",
       "description": "Identifiant de l'alarme à montrer dans l'application, par exemple alarm_control_panel.alarmo. Laissez vide s'il n'y a qu'une seule alarme."
+    },
+    "cameras": {
+      "name": "Caméras (vue Sécurité)",
+      "description": "Une ligne par caméra Eufy à montrer dans l'application : camera.<nom>=<numéro de série> (par exemple camera.entree=T8140P1234567890). Le numéro de série se lit dans l'application Eufy."
+    },
+    "cameras_interieures": {
+      "name": "Caméras intérieures",
+      "description": "Caméras qui filment l'intérieur de la maison (par exemple camera.salon) : visibles dans l'application seulement quand l'alarme est en « Absent »."
+    },
+    "cameras_louees": {
+      "name": "Caméras d'une partie louée",
+      "description": "Caméras qui voient une partie louée (par exemple camera.terrasse_airbnb) : marquées « Airbnb » dans l'application. Signalez-les dans votre annonce."
+    },
+    "camera_principale": {
+      "name": "Caméra principale",
+      "description": "La caméra montrée en grand dans l'écran Sécurité (par exemple camera.entree). Sans réglage : celle de la sonnette."
+    },
+    "cameras_sonnettes": {
+      "name": "Caméras de sonnette",
+      "description": "Caméras des sonnettes (par exemple camera.doorbell) : montrées comme sonnette dans l'application, et en grand dans l'écran Sécurité si aucune caméra principale n'est choisie."
     }
   },
   "network": {

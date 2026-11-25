@@ -39,6 +39,26 @@
     "alarme_entite": {
       "name": "Alarm to expose (optional)",
       "description": "Identifier of the alarm to show in the app, for example alarm_control_panel.alarmo. Leave empty if there is only one alarm."
+    },
+    "cameras": {
+      "name": "Cameras (Security view)",
+      "description": "One line per Eufy camera to show in the app: camera.<name>=<serial number> (for example camera.entree=T8140P1234567890). The serial number is shown in the Eufy app."
+    },
+    "cameras_interieures": {
+      "name": "Indoor cameras",
+      "description": "Cameras filming inside the house (for example camera.salon): visible in the app only when the alarm is set to Away."
+    },
+    "cameras_louees": {
+      "name": "Cameras of a rented area",
+      "description": "Cameras that see a rented area (for example camera.terrasse_airbnb): labelled “Airbnb” in the app. Mention them in your listing."
+    },
+    "camera_principale": {
+      "name": "Main camera",
+      "description": "The camera shown large on the Security screen (for example camera.entree). If unset: the doorbell's camera."
+    },
+    "cameras_sonnettes": {
+      "name": "Doorbell cameras",
+      "description": "Doorbell cameras (for example camera.doorbell): shown as a doorbell in the app, and large on the Security screen if no main camera is set."
     }
   },
   "network": {

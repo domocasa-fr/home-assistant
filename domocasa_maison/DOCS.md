@@ -92,15 +92,57 @@ Home Assistant crée des dizaines d'interrupteurs (voyants, verrous enfant…) q
 piloter depuis un téléphone. Les programmes d'arrosage restent des automatisations de Home
 Assistant. Mettez l'app Domocasa à jour sur les téléphones **après** cette app.
 
-## Jumeler un téléphone
+## Caméras (vue Sécurité)
+
+Il faut l'intégration `eufy_security` avec son add-on `eufy-security-ws` et son go2rtc. Pour
+votre sécurité, ni go2rtc ni `eufy-security-ws` ne doivent être joignables depuis le réseau de la
+maison : Domocasa vous aide à le vérifier.
+
+### Réglages
+
+- `cameras` : une ligne par caméra Eufy, `camera.entree=T8140P1234567890` (le numéro de série se
+  lit dans l'application Eufy).
+- `cameras_interieures` : celles qui filment l'intérieur. Elles ne sont visibles dans
+  l'application que lorsque l'alarme est en « Absent », jamais sur la tablette « Partagée ».
+- `cameras_louees` : celles qui voient une partie louée (étiquette « Airbnb ») ; à signaler dans
+  l'annonce, et aucune ne doit filmer l'intérieur du logement loué.
+- `cameras_sonnettes` : les caméras des sonnettes (par exemple `camera.doorbell`).
+- `camera_principale` : la caméra montrée en grand dans l'écran Sécurité (sinon la sonnette).
+
+### En direct
+
+L'image de la caméra s'affiche tout de suite, puis le direct en 5 à 9 secondes (le temps que la
+caméra se réveille), dans la meilleure qualité qu'elle donne. La vidéo va directement de la box
+au téléphone, chiffrée ; elle ne passe par aucun serveur Domocasa. Pour ménager les batteries, un
+direct s'arrête seul après 5 minutes sans activité, et 4 directs au plus sont ouverts en même
+temps dans la maison. Les personnes qui gèrent la maison voient les caméras ; les autres membres
+aussi, sauf si on leur retire ce droit. Le technicien Domocasa ne voit jamais d'image.
+
+### Notifications
+
+Une notification part avec la photo du passage quand une personne est détectée et que la maison
+est vide ou l'alarme en « Absent ». La sonnette notifie toujours. Ensuite, 2 minutes de silence
+pour la même caméra. Elles sont chiffrées de bout en bout : ni Apple, ni Google, ni Domocasa ne
+voient l'image. La tablette « Partagée » ne reçoit jamais de notification. Quand on sonne, les
+applications ouvertes montrent l'appel de la sonnette en plein écran.
+
+### Historique
+
+À chaque passage notifié, la box garde la photo et un clip de 15 secondes qu'elle enregistre
+elle-même ; le clip commence 5 à 9 secondes après la détection (réveil de la caméra). Tout reste
+**dans la box** (dossier de l'app, jamais envoyé au cloud), 7 jours au plus et 512 Mo en tout :
+quand la place manque, la caméra qui en prend le plus perd d'abord ses passages les plus anciens.
+Sur la tablette « Partagée », l'historique ne s'ouvre qu'avec le code de l'alarme, pour 5 minutes.
+
+## Installer avec Domocasa Pro
 
 1. Ouvrez **Domocasa** dans la barre latérale de Home Assistant (réservé aux administrateurs).
-2. Dans **Ajouter un téléphone**, saisissez le prénom, choisissez l'accès (**Partout**, **À la
-   maison seulement** ou **Partagée**), puis **Afficher le QR**.
-3. Dans l'application Domocasa sur le téléphone, scannez le QR.
+2. Dans **Installer avec Domocasa Pro**, touchez **Afficher le QR**.
+3. Le technicien Domocasa le scanne avec Domocasa Pro, pendant l'installation.
 
-Le QR est valable 10 minutes, une seule fois. Chaque jumelage est inscrit au journal de l'app
-avec le nom de la personne connectée à Home Assistant.
+Le QR est valable 10 minutes, une seule fois. Les téléphones de la famille s'ajoutent ensuite
+depuis Domocasa Pro ou depuis l'application Domocasa ; la page **Téléphones de la maison** les
+liste, et **Retirer** coupe aussitôt un téléphone perdu.
 
 ## Si quelque chose ne va pas
 
