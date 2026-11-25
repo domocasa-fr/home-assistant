@@ -53,7 +53,7 @@ profile domocasa_maison flags=(attach_disconnected,mediate_deleted) {
 
     /usr/bin/go2rtc mr,
 
-    # WebRTC (:8555 UDP et TCP), RTSP du go2rtc Eufy (127.0.0.1:8554), STUN ; socket de l'API.
+    # WebRTC (:28555 UDP et TCP), RTSP du go2rtc Eufy (127.0.0.1:8554), STUN ; socket de l'API.
     network inet stream,
     network inet dgram,
     network inet6 stream,

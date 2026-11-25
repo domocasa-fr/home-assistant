@@ -1,5 +1,10 @@
 # Notes de version
 
+## 0.1.8
+
+- Le direct des caméras passe par le port 28555 : il n'entre plus en conflit avec l'intégration
+  WebRTC Camera, qui occupe déjà le port 8555 sur beaucoup d'installations.
+
 ## 0.1.7
 
 - Vue Sécurité : les caméras Eufy de la maison dans l'application Domocasa. Image tout de suite,
