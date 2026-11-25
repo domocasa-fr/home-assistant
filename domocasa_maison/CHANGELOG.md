@@ -1,5 +1,11 @@
 # Notes de version
 
+## 0.1.9
+
+- Le journal de l'app indique, pour chaque direct ouvert, refusé ou fermé, les chemins proposés
+  par le téléphone et par la box (réseau local, Internet, relais), sans jamais écrire une
+  adresse. Il aide à comprendre un direct qui ne s'ouvre pas hors de chez soi.
+
 ## 0.1.8
 
 - Le direct des caméras passe par le port 28555 : il n'entre plus en conflit avec l'intégration
