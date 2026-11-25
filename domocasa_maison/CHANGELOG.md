@@ -1,5 +1,12 @@
 # Notes de version
 
+## 0.1.10
+
+- Direct des caméras corrigé sur Home Assistant OS : la box ne propose plus au téléphone que
+  ses chemins utiles, et sa réponse n'est plus refusée pour sa taille. Hors de chez soi, le
+  relais sécurisé prend la suite quand le réseau bloque le chemin direct.
+- Une caméra lente à se réveiller a 20 secondes au lieu de 15 pour envoyer son image.
+
 ## 0.1.9
 
 - Le journal de l'app indique, pour chaque direct ouvert, refusé ou fermé, les chemins proposés
