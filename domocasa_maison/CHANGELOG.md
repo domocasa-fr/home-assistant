@@ -1,5 +1,16 @@
 # Notes de version
 
+## 0.1.13
+
+- Direct des caméras plus rapide : l'application réveille la caméra dès qu'on la touche, et la
+  caméra principale dès l'ouverture de l'écran Sécurité ; une caméra réveillée que personne ne
+  regarde se rendort après 30 secondes. Demande une application Domocasa à jour.
+- Le son arrive dans le direct des caméras : la box convertit le son de la caméra pour le
+  téléphone ; l'image, elle, arrive telle que la caméra l'envoie.
+- Le direct s'ouvre dès que la caméra est prête : quand sa base n'est pas encore prête, la box
+  redemande l'image quatre fois par seconde pendant les trois premières secondes (la base est
+  prête en une à deux secondes), puis chaque seconde, pour ne pas la solliciter sans fin.
+
 ## 0.1.12
 
 - Direct des caméras Eufy en 5 secondes : quand le RTSP d'une caméra est activé dans l'app Eufy,
