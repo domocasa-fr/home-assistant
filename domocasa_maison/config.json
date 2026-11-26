@@ -1,6 +1,6 @@
 {
   "name": "Domocasa Maison",
-  "version": "0.1.13",
+  "version": "0.1.12",
   "slug": "domocasa_maison",
   "description": "Pilotez votre maison depuis l'application Domocasa, sans rien ouvrir sur Internet.",
   "url": "https://domocasa.fr",
@@ -38,8 +38,6 @@
     "*.lock",
     "passages",
     "passages/**",
-    "logements/*/passages",
-    "logements/*/passages/**",
     "go2rtc",
     "go2rtc/**",
     "go2rtc.yaml"
@@ -53,8 +51,7 @@
     "cameras_louees": [],
     "cameras_sonnettes": [],
     "annonce_mdns": true,
-    "niveau_journal": "info",
-    "logements": []
+    "niveau_journal": "info"
   },
   "schema": {
     "lieu": "str",
@@ -71,15 +68,6 @@
     "cloud_url": "url?",
     "niveau_journal": "list(erreur|avertissement|info|detail)",
     "alarme_code": "password?",
-    "alarme_entite": "str?",
-    "logements": [
-      {
-        "lieu": "str",
-        "masquer": ["str?"],
-        "arrosage": ["str?"],
-        "cameras": ["match(^camera\\.[a-z0-9_]+=[A-Z0-9]{8,32}$)?"],
-        "presence": ["match(^person\\.[a-z0-9_]+$)?"]
-      }
-    ]
+    "alarme_entite": "str?"
   }
 }

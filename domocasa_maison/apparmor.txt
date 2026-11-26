@@ -47,20 +47,13 @@ profile domocasa_maison flags=(attach_disconnected,mediate_deleted) {
 
   # go2rtc embarqué : lit SA configuration (écrite par la passerelle) et sert SA socket ; ni les
   # clés, ni l'identité, ni le journal, ni les passages (les clips sont écrits par la passerelle,
-  # go2rtc ne fait que les lui servir), ni `/config`. N'exécute que le ffmpeg du son.
+  # go2rtc ne fait que les lui servir), ni `/config`. N'exécute rien.
   profile go2rtc flags=(attach_disconnected,mediate_deleted) {
     #include <abstractions/base>
 
     /usr/bin/go2rtc mr,
 
-    # Le son des directs (spec caméras § 3) : go2rtc lance le ffmpeg minimal de l'image, dans
-    # son propre profil ci-dessous, lit sa sortie standard (un tube) et l'arrête ; aucun autre
-    # programme.
-    /usr/bin/ffmpeg px -> domocasa_maison//ffmpeg,
-    signal (send) set=(term,kill) peer=domocasa_maison//ffmpeg,
-
-    # WebRTC (:28555 UDP et TCP), client RTSP (HomeBase, go2rtc Eufy de 127.0.0.1:8554 ; aucune
-    # écoute RTSP), STUN ; socket de l'API.
+    # WebRTC (:28555 UDP et TCP), RTSP du go2rtc Eufy (127.0.0.1:8554), STUN ; socket de l'API.
     network inet stream,
     network inet dgram,
     network inet6 stream,
@@ -83,27 +76,6 @@ profile domocasa_maison flags=(attach_disconnected,mediate_deleted) {
     /proc/sys/net/** r,
     /sys/kernel/mm/transparent_hugepage/hpage_pmd_size r,
 
-    deny /config/** rwklx,
-    deny /homeassistant/** rwklx,
-    deny /share/** rwklx,
-    deny /backup/** rwklx,
-  }
-
-  # ffmpeg du son, lancé par go2rtc : lit le son de la caméra en RTSP sur TCP seulement
-  # (`-rtsp_transport tcp` : la HomeBase, ou le go2rtc Eufy de 127.0.0.1:8554, adresses IPv4
-  # sans résolution de nom) et écrit l'Opus sur sa sortie standard, le tube hérité de go2rtc.
-  # Ni UDP, ni IPv6, ni écoute ; ne lit ni n'écrit aucun fichier de l'app, n'exécute rien.
-  profile ffmpeg flags=(attach_disconnected,mediate_deleted) {
-    #include <abstractions/base>
-
-    /usr/bin/ffmpeg mr,
-
-    network inet stream,
-
-    # Arrêt par go2rtc ou par le Supervisor.
-    signal (receive) set=(term,int,kill),
-
-    deny /data/** rwklx,
     deny /config/** rwklx,
     deny /homeassistant/** rwklx,
     deny /share/** rwklx,

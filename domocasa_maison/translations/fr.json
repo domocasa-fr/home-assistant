@@ -59,10 +59,6 @@
     "cameras_sonnettes": {
       "name": "Caméras de sonnette",
       "description": "Caméras des sonnettes (par exemple camera.doorbell) : montrées comme sonnette dans l'application, et en grand dans l'écran Sécurité si aucune caméra principale n'est choisie."
-    },
-    "logements": {
-      "name": "Logements indépendants, comme une location (facultatif)",
-      "description": "Réservé à votre installateur. Un logement de plus sur la même box (par exemple une location), séparé de la maison : son étage (lieu), ses appareils exclus, ses arrosages, ses caméras et ses personnes (presence). Il n'a pas d'alarme. Une caméra ne peut être que dans un seul logement."
     }
   },
   "network": {
