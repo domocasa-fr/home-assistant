@@ -3,6 +3,14 @@
 # Profil de l'app Domocasa Maison (spec passerelle en app HA § 8). Brouillon accepté par
 # `apparmor_parser -Q -K -T` ; la liste exacte se règle sur le banc HAOS en mode `complain`
 # (journal d'audit), puis retour en mode strict.
+#
+# Le Supervisor RENOMME ce profil au slug de l'app chez chaque client (`adjust_profile` :
+# `2444fd9a_domocasa_maison` depuis le dépôt Domocasa, `local_domocasa_maison` en app locale).
+# Aucune règle ne nomme donc le profil en dur : les sous-profils se joignent par `cx` (relatif au
+# profil courant ; ffmpeg, sous-profil de go2rtc, par son attache) et les pairs des signaux par
+# `@{profile_name}` (le nom du profil courant, une fois renommé). Une référence au nom en dur
+# visait un profil inexistant : exec de ffmpeg refusé (« profile transition not found ») et
+# go2rtc impossible à arrêter (banc HAOS du 26/11, box 0.1.13).
 profile domocasa_maison flags=(attach_disconnected,mediate_deleted) {
   #include <abstractions/base>
 
@@ -24,7 +32,7 @@ profile domocasa_maison flags=(attach_disconnected,mediate_deleted) {
   /usr/bin/maison-passerelle ix,
   /usr/bin/go2rtc cx -> go2rtc,
   # La passerelle arrête go2rtc (son sous-profil) ; aucun autre processus.
-  signal (send) set=(term,kill) peer=domocasa_maison//go2rtc,
+  signal (send) set=(term,kill) peer=@{profile_name}//go2rtc,
 
   # Données de l'app (identité de la maison, journal, appareils) et dossier de configuration.
   /data/ r,
@@ -39,6 +47,10 @@ profile domocasa_maison flags=(attach_disconnected,mediate_deleted) {
   /etc/resolv.conf r,
   /etc/nsswitch.conf r,
   /proc/sys/net/** r,
+  # La bibliothèque standard de Rust y lit le quota de processeur du conteneur (nombre de fils) ;
+  # refusé sans bruit, elle compte alors les processeurs (banc HAOS du 26/11 : seul refus restant
+  # au journal de l'hôte, à chaque démarrage).
+  deny /proc/*/cgroup r,
 
   # Aucun accès aux dossiers de Home Assistant.
   deny /homeassistant/** rwklx,
@@ -47,13 +59,24 @@ profile domocasa_maison flags=(attach_disconnected,mediate_deleted) {
 
   # go2rtc embarqué : lit SA configuration (écrite par la passerelle) et sert SA socket ; ni les
   # clés, ni l'identité, ni le journal, ni les passages (les clips sont écrits par la passerelle,
-  # go2rtc ne fait que les lui servir), ni `/config`. N'exécute rien.
+  # go2rtc ne fait que les lui servir), ni `/config`. N'exécute que le ffmpeg du son.
   profile go2rtc flags=(attach_disconnected,mediate_deleted) {
     #include <abstractions/base>
 
     /usr/bin/go2rtc mr,
 
-    # WebRTC (:28555 UDP et TCP), RTSP du go2rtc Eufy (127.0.0.1:8554), STUN ; socket de l'API.
+    # Le son des directs (spec caméras § 3) : go2rtc lance le ffmpeg minimal de l'image, dans
+    # son propre profil ci-dessous, lit sa sortie standard (un tube) et l'arrête ; aucun autre
+    # programme. Sous-profil DE go2rtc, choisi par `cx` SANS nom : le noyau cherche, parmi les
+    # sous-profils de go2rtc, celui qui s'attache à /usr/bin/ffmpeg. `cx -> ffmpeg` écrit
+    # « go2rtc//ffmpeg » dans la table, que le noyau ne trouve pas depuis go2rtc (« profile
+    # transition not found », banc HAOS du 26/11) ; `px -> <nom complet>` ne survit pas au
+    # renommage.
+    /usr/bin/ffmpeg cx,
+    signal (send) set=(term,kill) peer=@{profile_name}//ffmpeg,
+
+    # WebRTC (:28555 UDP et TCP), client RTSP (HomeBase, go2rtc Eufy de 127.0.0.1:8554 ; aucune
+    # écoute RTSP), STUN ; socket de l'API.
     network inet stream,
     network inet dgram,
     network inet6 stream,
@@ -75,10 +98,34 @@ profile domocasa_maison flags=(attach_disconnected,mediate_deleted) {
     /etc/nsswitch.conf r,
     /proc/sys/net/** r,
     /sys/kernel/mm/transparent_hugepage/hpage_pmd_size r,
+    # Le moteur de Go y cherche les limites du conteneur (GOMAXPROCS) : refusé sans bruit, il
+    # compte les processeurs (même constat que la passerelle et son `cgroup`).
+    deny /proc/*/mountinfo r,
 
     deny /config/** rwklx,
     deny /homeassistant/** rwklx,
     deny /share/** rwklx,
     deny /backup/** rwklx,
+
+    # ffmpeg du son, lancé par go2rtc : lit le son de la caméra en RTSP sur TCP seulement
+    # (`-rtsp_transport tcp` : la HomeBase, ou le go2rtc Eufy de 127.0.0.1:8554, adresses IPv4
+    # sans résolution de nom) et écrit l'Opus sur sa sortie standard, le tube hérité de go2rtc.
+    # Ni UDP, ni IPv6, ni écoute ; ne lit ni n'écrit aucun fichier de l'app, n'exécute rien.
+    profile ffmpeg /usr/bin/ffmpeg flags=(attach_disconnected,mediate_deleted) {
+      #include <abstractions/base>
+
+      /usr/bin/ffmpeg mr,
+
+      network inet stream,
+
+      # Arrêt par go2rtc ou par le Supervisor.
+      signal (receive) set=(term,int,kill),
+
+      deny /data/** rwklx,
+      deny /config/** rwklx,
+      deny /homeassistant/** rwklx,
+      deny /share/** rwklx,
+      deny /backup/** rwklx,
+    }
   }
 }

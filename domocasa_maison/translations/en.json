@@ -59,6 +59,10 @@
     "cameras_sonnettes": {
       "name": "Doorbell cameras",
       "description": "Doorbell cameras (for example camera.doorbell): shown as a doorbell in the app, and large on the Security screen if no main camera is set."
+    },
+    "logements": {
+      "name": "Independent homes, such as a rental (optional)",
+      "description": "For your installer only. One more home on the same box (for example a rental), kept apart from the house: its floor (lieu), excluded devices, watering, cameras and people (presence). It has no alarm. A camera can only be in one home."
     }
   },
   "network": {
