@@ -1,5 +1,11 @@
 # Notes de version
 
+## 0.1.12
+
+- Direct des caméras Eufy en 5 secondes : quand le RTSP d'une caméra est activé dans l'app Eufy,
+  la box prend sa vidéo directement à la HomeBase, sans passer par le P2P de l'intégration Eufy
+  (20 à 40 secondes, souvent trop tard pour le téléphone). Les autres caméras gardent le P2P.
+
 ## 0.1.11
 
 - Direct et clips des caméras Eufy : la box n'abandonne plus le réveil d'une caméra quand Home
