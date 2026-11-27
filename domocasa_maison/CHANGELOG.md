@@ -1,5 +1,10 @@
 # Notes de version
 
+## 0.1.15
+
+- Passer d'une caméra à l'autre est plus rapide et ne coupe plus les autres personnes qui
+  regardent.
+
 ## 0.1.14
 
 - Le son arrive dans le direct des caméras : la box convertit le son de la caméra pour le
