@@ -1,5 +1,13 @@
 # Notes de version
 
+## 0.1.16
+
+- Caméras plus rapides : à l'ouverture de l'écran Sécurité, l'application réveille les caméras à
+  l'avance et les rendort dès qu'on quitte l'écran. Demande une application Domocasa à jour.
+- Plus de blocage quand deux personnes regardent deux caméras différentes : une caméra déjà
+  regardée n'est jamais coupée.
+- Un identifiant RTSP changé dans l'app Eufy est pris en compte sans redémarrer la box.
+
 ## 0.1.15
 
 - Passer d'une caméra à l'autre est plus rapide et ne coupe plus les autres personnes qui
